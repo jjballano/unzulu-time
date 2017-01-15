@@ -16,6 +16,8 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
+gem 'pg', '~> 0.18.4', group: :production
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -29,7 +31,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
 
   gem 'sqlite3'
-  
+
   gem 'dotenv-rails'
 end
 
