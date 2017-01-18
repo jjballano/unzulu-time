@@ -1,2 +1,122 @@
-<h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
+<div class="page-home">
+  <header>
+    <%= image_tag("user-login.png", class:'login-ico') %>
+    <%= image_tag("logoUnzulu.png", class:'logo') %>
+  </header>
+  <section>
+    <h4>TIMER</h4>
+    <select>
+      <option value="Project">Project 1</option>
+      <option value="Project">Project 1</option>
+    </select>
+
+    <button class="button-play"><%= fa_icon "play" %></i></button>
+
+  </section>
+  <section>
+    <h4>SUMMARY</h4>
+    <article class="summary-total">
+      <h4>Total</h4>
+      <div class="summary-total-data">
+        <div class= "summary-layer">
+          <p>2.52</p>
+          <p>Day</p>
+        </div>
+        <div class= "summary-layer">
+          <p>12.52</p>
+          <p>Week</p>
+        </div>
+        <div class= "summary-layer">
+          <p>32.52</p>
+          <p>Month</p>
+        </div>
+      </div>
+      <select>
+        <option value="Period">Custom Period</option>
+        <option value="Period">Day</option>
+        <option value="Period">Week</option>
+        <option value="Period">Month</option>
+      </select>
+    </article>
+    <article class="breakdown">
+      <div class="breakdown-project">
+        <div class="project-data">
+          <p>Project Name</p>
+          <p class="client">Client</p>
+        </div>
+        <div>
+          <p>8.25</p>
+          <p class="name">Day</p>
+        </div>
+        <div>
+          <p>18.25</p>
+          <p class="name">Week</p>
+        </div>
+        <div>
+          <p>38.25</p>
+          <p class="name">Month</p>
+        </div>
+        <div>
+          <p>118.25</p>
+          <p class="name">Total</p>
+        </div>
+      </div>
+      <div class="layer-tasks">
+        <div class="tasks-header">
+          <div class="tasks-title">
+            <h5>TASKS</h5>
+            <div class="dropdown">
+              <%= fa_icon 'caret-down' %>
+            </div>
+          </div>
+          <div class="button-export-excel">
+            <button class="export-excel">
+                <%= image_tag("excel-export-icon.png", class:'export-excel-icon') %>
+            </button>
+          </div>     
+        </div>
+        <div class="tasks-list">
+            <div class= "list">
+              <div class="task-date"><p>09.12.2016</p></div>
+              <div class="task-description"><p>Description</p></div>
+              <div class="task-price"><p>3.02</p></div>
+            </div>
+            <div class= "list">
+              <div class="task-date"><p>09.12.2016</p></div>
+              <div class="task-description"><p>Description</p></div>
+              <div class="task-price"><p>3.02</p></div>
+            </div>
+        </div>
+        
+      </div>
+      
+    </article>
+  </section>
+  <section class="pop-up edit-task">
+    <h4>EDIT TASK</h4>
+    <div>
+      <div class="icon"><%= fa_icon 'folder' %></div>
+      <input type="text" name="project" value="Project"></input>
+      <div class="billable">
+        <input type="checkbox" name="billable" value="billable">
+        <p class="billable-text">Billable</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="icon"><%= image_tag("moustache.svg", class:'client-icon') %></div>
+      <input type="text" name="client" value="Client"></input>    
+    </div>
+    <div>
+      <div class="icon time-icon"><%= fa_icon 'clock-o' %></div>
+      <div class="from-to">
+        <p>From:</p>
+        <p>To:</p>
+      </div>
+    </div>
+    <div>
+      <div class="icon description-icon"><%= fa_icon 'align-left' %></div>
+      <textarea class="description" rows= "2" type="text" name="description" value="Description"></textarea>      
+    </div>  
+  </section>
+</div>
