@@ -22,3 +22,5 @@
 
 #Env-rails config file
 .env
+
+config/application.yml
