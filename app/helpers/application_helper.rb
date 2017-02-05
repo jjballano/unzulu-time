@@ -1,7 +1,9 @@
 module ApplicationHelper
-  def fa_button_to(fa_class, options = nil, html_options = nil)
-    button_to(options, html_options) do
+  
+  def fa_submit(form, fa_class, options = {}, html_options = {})
+    button_to({type: 'submit'}.merge(options), html_options) do
       fa_icon fa_class
     end
   end
+
 end

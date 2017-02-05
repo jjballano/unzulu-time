@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :project do
     name "MyString"
-    user nil
+    association :user, factory: :user
   end
 end

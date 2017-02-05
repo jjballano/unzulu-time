@@ -4,6 +4,6 @@
 App.Tasks =
   initialize: ->
     projectList = JSON.parse($('#project-list').val())
-    $('#projects').autocomplete({
+    $('#project').autocomplete({
       source: projectList
     })

@@ -3,12 +3,9 @@
     <%= image_tag("user-login.png", class: 'login-ico') %>
     <%= image_tag("logoUnzulu.png", class: 'logo') %>
   </header>
-  <section>
-    <h4>TIMER</h4>
-    <%= hidden_field_tag "project-list", @projects.to_json %>
-    <%= text_field_tag 'projects', nil, class: 'project-selector' %>
-    <%= fa_button_to "play", { action: 'start' }, remote: true, form_class: "button-play" %>
-
+  
+  <section id="timer">
+    <%= render partial: "timer", locals: { user: @user, task: @task, task_period: nil } %>
   </section>
   <section>
     <h4>SUMMARY</h4>
