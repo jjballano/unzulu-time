@@ -1,16 +1,13 @@
 <div class="page-home">
   <header>
-    <%= image_tag("user-login.png", class:'login-ico') %>
-    <%= image_tag("logoUnzulu.png", class:'logo') %>
+    <%= image_tag("user-login.png", class: 'login-ico') %>
+    <%= image_tag("logoUnzulu.png", class: 'logo') %>
   </header>
   <section>
     <h4>TIMER</h4>
-    <select>
-      <option value="Project">Project 1</option>
-      <option value="Project">Project 1</option>
-    </select>
-
-    <button class="button-play"><%= fa_icon "play" %></i></button>
+    <%= hidden_field_tag "project-list", @projects.to_json %>
+    <%= text_field_tag 'projects', nil, class: 'project-selector' %>
+    <%= fa_button_to "play", { action: 'start' }, remote: true, form_class: "button-play" %>
 
   </section>
   <section>

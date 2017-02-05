@@ -5,4 +5,5 @@ Rails.application.routes.draw do
 
   get ':user', to: 'tasks#index'
   get ':user/list', to: 'tasks#list'
+  post ':user/start', to: 'tasks#start'
 end

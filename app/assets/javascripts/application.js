@@ -17,6 +17,7 @@
 
 var initialize_modules = function() {
   App.Welcome.initialize();
+  App.Tasks.initialize();
 };
 
 $(function(){

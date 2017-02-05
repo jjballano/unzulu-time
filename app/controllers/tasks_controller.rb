@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
 
   before_action :load_user
-  rescue_from ActiveRecord::RecordNotFound, with: :create_user
+  before_action :set_projects, only: [:index]
     
   def index
   end
@@ -9,14 +9,22 @@ class TasksController < ApplicationController
   def list
   end
 
+  def start    
+  end
+
   private 
 
   def load_user
-    @user = User.find_by_username!(params[:user])
+    @user = User.find_by_username(params[:user])
+    create_user if @user.nil?
   end
 
   def create_user
-    User.create(username: params[:user])
+    @user = User.create(username: params[:user])
+  end
+
+  def set_projects
+    @projects = @user.projects.map(&:name)
   end
 
 end

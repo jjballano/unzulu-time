@@ -16,5 +16,26 @@ RSpec.describe TasksController, type: :controller do
       expect(User.count).to eq(2)
       expect(User.all[1].username).to eq('another_user')
     end
+
+    describe 'returns all projects' do
+      it 'when user already exists' do
+        user.projects.create(name: 'any project')
+        user.projects.create(name: 'another project')
+
+        expect(Project.count).to eq(2)
+
+        get :index, params: { user: 'the_user' }
+
+        expect(assigns(:projects)).to eq(['any project', 'another project'])
+      end
+
+      it 'when user does not exist' do
+        get :index, params: { user: 'new_user' }
+
+        expect(assigns(:projects)).to eq([])
+      end
+
+    end
+
   end
 end
