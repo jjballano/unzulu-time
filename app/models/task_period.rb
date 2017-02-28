@@ -4,4 +4,9 @@ class TaskPeriod < ApplicationRecord
   def started?
     finished_at.nil?
   end
+
+  def close
+    self.finished_at = Time.now
+    self.save
+  end
 end

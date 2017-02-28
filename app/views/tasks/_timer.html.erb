@@ -1,12 +1,20 @@
 <h4>TIMER</h4>
-<%= hidden_field_tag "project-list", project_names(user) %>
-<%= form_for task, remote: true, class: "button-play" do |f| %>
-  <%= hidden_field_tag "user", user.username %>
-  <%= text_field_tag 'project', task.project.name, class: 'project-selector' %>
-  <%= fa_submit f, "play" %>
-  <% unless task_period.nil? || !task_period.started? %>
-    <div>
-      Started at: <%= task_period.started_at %>
-    </div>
+
+<% unless task.started? %>
+  <%= hidden_field_tag "project-list", project_names(user) %>
+  <%= form_for task, remote: true, class: "button-play" do |f| %>
+    <%= hidden_field_tag "user", user.username %>
+    <%= text_field_tag 'project', task.project.name, class: 'project-selector' %>
+    <%= fa_submit "play" %>  
+   <% unless task_period.nil? || !task_period.started? %>
+      <div>
+        Started at: <%= task_period.started_at %>
+      </div>
+    <% end %>
   <% end %>
+<% else %>
+  <%= task.project.name %>
+  <%= fa_button "stop", {action: 'stop', id: task_period.id, user: user.username}, {id: 'stop-task'} %>
+  <%= fa_button "pause", {action: 'pause', id: task_period.id, user: user.username}, {id: 'pause-task', remote: true} %>
+
 <% end %>

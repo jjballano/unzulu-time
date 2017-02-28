@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe TasksController, type: :controller do
 
-  let!(:user) {create(:user, username: 'the_user')}
+  let!(:user) { create(:user, username: 'the_user') }
   #I have used let! instead of let because let is lazily evaluated
 
   describe 'index' do
@@ -75,6 +75,72 @@ RSpec.describe TasksController, type: :controller do
       expect(assigns(:task)).not_to be_nil
       expect(assigns(:task_period).started_at).not_to be_nil
       expect(assigns(:task_period).started?).to be_truthy
+    end
+  end
+
+  describe 'update' do
+    let!(:project) { create(:project, user: user) }
+    let!(:task) { create(:task, project: project) }
+
+    it 'should creates a new task period within the existing task' do
+      previous_size = TaskPeriod.where(task: task).count
+      post :update, params: {user: 'the_user', id: task.id}, xhr: true
+
+      expect(TaskPeriod.where(task: task).count).to eq(1+previous_size)
+      expect(TaskPeriod.where(task: task).last.started?).to be_truthy
+    end
+  end
+
+  describe 'pause' do
+    let!(:project) { create(:project, user: user) }
+    let!(:task) { create(:task, project: project) }
+
+    it 'should add a finished date to the task period already opened' do
+      task_period = TaskPeriod.create!(task: task, started_at: Time.now)
+
+      post :pause, params: {user: 'the_user', id: task_period.id}, xhr: true
+
+      expect(TaskPeriod.find(task_period.id).finished_at?).not_to be_nil
+      expect(TaskPeriod.find(task_period.id).started?).to be_falsy
+    end
+
+    it 'should not allow to finish a task from other user' do
+      task_period = TaskPeriod.create!(task: task, started_at: Time.now)
+
+      post :pause, params: {user: 'another_user', id: task_period.id}, xhr: true
+
+      expect(TaskPeriod.find(task_period.id).finished_at).to be_nil
+    end
+  end
+
+  describe 'stop' do
+    let!(:project) { create(:project, user: user) }
+    let!(:task) { create(:task, project: project) }
+
+    it 'should add a finished date to the task period already opened' do
+      task_period = TaskPeriod.create!(task: task, started_at: Time.now)
+
+      post :stop, params: {user: 'the_user', id: task_period.id}
+
+      expect(TaskPeriod.find(task_period.id).finished_at?).not_to be_nil
+      expect(TaskPeriod.find(task_period.id).started?).to be_falsy
+    end
+
+    it 'should not allow to finish a task from other user' do
+      task_period = TaskPeriod.create!(task: task, started_at: Time.now)
+
+      post :stop, params: {user: 'another_user', id: task_period.id}
+
+      expect(TaskPeriod.find(task_period.id).finished_at).to be_nil
+      expect(response).to redirect_to '/another_user'
+    end
+
+    it 'should redirects to index after closing the last task' do
+      task_period = TaskPeriod.create!(task: task, started_at: Time.now)
+
+      post :stop, params: {user: 'the_user', id: task_period.id}
+
+      expect(response).to redirect_to '/the_user'
     end
   end
 

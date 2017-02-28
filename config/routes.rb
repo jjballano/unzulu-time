@@ -5,5 +5,10 @@ Rails.application.routes.draw do
 
   get ':user', to: 'tasks#index'
   
-  resources :tasks
+  resources :tasks do
+    member do
+      post 'pause'
+      post 'stop'
+    end
+  end
 end
