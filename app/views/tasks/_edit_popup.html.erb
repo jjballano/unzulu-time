@@ -1,0 +1,27 @@
+<section class="pop-up edit-task">
+  <h4>EDIT TASK</h4>
+  <div>
+    <div class="icon"><%= fa_icon 'folder' %></div>
+    <input type="text" name="project" value="Project"></input>
+    <div class="billable">
+      <input type="checkbox" name="billable" value="billable">
+      <p class="billable-text">Billable</p>
+    </div>
+  </div>
+
+  <div>
+    <div class="icon"><%= image_tag("moustache.svg", class:'client-icon') %></div>
+    <input type="text" name="client" value="Client"></input>    
+  </div>
+  <div>
+    <div class="icon time-icon"><%= fa_icon 'clock-o' %></div>
+    <div class="from-to">
+      <p>From:</p>
+      <p>To:</p>
+    </div>
+  </div>
+  <div>
+    <div class="icon description-icon"><%= fa_icon 'align-left' %></div>
+    <textarea class="description" rows= "2" type="text" name="description" value="Description"></textarea>      
+  </div>  
+</section>

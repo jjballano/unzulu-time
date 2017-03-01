@@ -1,0 +1,53 @@
+<article class="breakdown">
+  <div class="breakdown-project">
+    <div class="project-data">
+      <p><%= project.name %></p>
+      <p class="client">Client</p>
+    </div>
+    <div>
+      <p><%= project.time_day %></p>
+      <p class="name">Day</p>
+    </div>
+    <div>
+      <p><%= project.time_week %></p>
+      <p class="name">Week</p>
+    </div>
+    <div>
+      <p><%= project.time_month %></p>
+      <p class="name">Month</p>
+    </div>
+    <div>
+      <p><%= project.time_total %></p>
+      <p class="name">Total</p>
+    </div>
+  </div>
+  <div class="layer-tasks">
+    <div class="tasks-header">
+      <div class="tasks-title">
+        <h5>TASKS</h5>
+        <div class="dropdown">
+          <%= fa_icon 'caret-down' %>
+        </div>
+      </div>
+      <div class="button-export-excel">
+        <button class="export-excel">
+            <%= image_tag("excel-export-icon.png", class:'export-excel-icon') %>
+        </button>
+      </div>     
+    </div>
+    <div class="tasks-list">
+        <div class= "list">
+          <div class="task-date"><p>09.12.2016</p></div>
+          <div class="task-description"><p>Description</p></div>
+          <div class="task-price"><p>3.02</p></div>
+        </div>
+        <div class= "list">
+          <div class="task-date"><p>09.12.2016</p></div>
+          <div class="task-description"><p>Description</p></div>
+          <div class="task-price"><p>3.02</p></div>
+        </div>
+    </div>
+    
+  </div>
+  
+</article>

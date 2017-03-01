@@ -8,4 +8,16 @@ class User < ApplicationRecord
     registered = false if registered.nil?
   end
 
+  def total_day
+    8.52
+  end
+
+  def total_week
+    22.55
+  end
+
+  def total_month
+    143.2
+  end
+
 end
