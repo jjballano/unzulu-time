@@ -34,7 +34,18 @@ class TasksController < ApplicationController
   end
 
   def stop
-    stop_task    
+    stop_task
+    filtered_params = task_params
+    client_name = filtered_params.delete(:client)
+    project_name = filtered_params.delete(:project)
+
+    @task.assign_attributes(filtered_params)
+    if project_name != @task.project.name
+      @task.project = Project.find_or_create_by(name: project_name, user: @user)
+    end
+
+    @task.save
+
     redirect_to "/#{@user.username}"
   end
 
@@ -82,6 +93,10 @@ class TasksController < ApplicationController
 
   def stop_task
     @task_period.close    
+  end
+
+  def task_params
+    params.require(:task).permit(:description, :billable, :client, :project) 
   end
 
 end

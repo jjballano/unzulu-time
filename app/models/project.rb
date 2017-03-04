@@ -1,7 +1,7 @@
 class Project < ApplicationRecord
   belongs_to :user
+  belongs_to :client, required: false
   has_many :tasks, dependent: :destroy
-
 
   def time_day
     5.2

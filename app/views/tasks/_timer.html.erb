@@ -14,7 +14,7 @@
   <% end %>
 <% else %>
   <%= task.project.name %>
-  <%= fa_button "stop", {action: 'stop', id: task_period.id, user: user.username}, {id: 'stop-task'} %>
+  <%= fa_link "stop", {}, {class: 'button', href: '#edit-task-popup', rel: 'modal:open'} %>
   <%= fa_button "pause", {action: 'pause', id: task_period.id, user: user.username}, {id: 'pause-task', remote: true} %>
 
 <% end %>

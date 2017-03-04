@@ -4,4 +4,8 @@ FactoryGirl.define do
     finished_at "2017-02-05 17:42:59"
     association :task, factory: :task    
   end
+
+  factory :task_period_started, class: TaskPeriod, parent: :task_period do
+    finished_at nil
+  end
 end

@@ -1,27 +1,31 @@
-<section class="pop-up edit-task">
-  <h4>EDIT TASK</h4>
-  <div>
-    <div class="icon"><%= fa_icon 'folder' %></div>
-    <input type="text" name="project" value="Project"></input>
-    <div class="billable">
-      <input type="checkbox" name="billable" value="billable">
-      <p class="billable-text">Billable</p>
+<section class="pop-up edit-task" id="edit-task-popup">
+  <%= form_for task, url: {action: 'stop', id: task.id} do |f| %>
+    <%= hidden_field_tag "user", user.username %>
+    <h4>EDIT TASK</h4>
+    <div>
+      <div class="icon"><%= fa_icon 'folder' %></div>
+      <%= f.text_field :project, value: task.project.name %>
+      <div class="billable">      
+        <%= f.check_box :billable %>
+        <p class="billable-text">Billable</p>
+      </div>
     </div>
-  </div>
 
-  <div>
-    <div class="icon"><%= image_tag("moustache.svg", class:'client-icon') %></div>
-    <input type="text" name="client" value="Client"></input>    
-  </div>
-  <div>
-    <div class="icon time-icon"><%= fa_icon 'clock-o' %></div>
-    <div class="from-to">
-      <p>From:</p>
-      <p>To:</p>
+    <div>
+      <div class="icon"><%= image_tag("moustache.svg", class:'client-icon') %></div>
+      <%= f.text_field :client, value: task.project.client.name %>
     </div>
-  </div>
-  <div>
-    <div class="icon description-icon"><%= fa_icon 'align-left' %></div>
-    <textarea class="description" rows= "2" type="text" name="description" value="Description"></textarea>      
-  </div>  
+    <div>
+      <div class="icon time-icon"><%= fa_icon 'clock-o' %></div>
+      <div class="from-to">
+        <p>From:</p>
+        <p>To:</p>
+      </div>
+    </div>
+    <div>
+      <div class="icon description-icon"><%= fa_icon 'align-left' %></div>
+      <%= f.text_area :description, rows: "2" %>
+    </div>  
+    <%= button_to "Save", {action: 'stop', id: task_period.id, user: user.username}, {id: 'stop-task'} %>  
+  <% end %>
 </section>

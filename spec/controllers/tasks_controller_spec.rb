@@ -79,8 +79,8 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'update' do
-    let!(:project) { create(:project, user: user) }
-    let!(:task) { create(:task, project: project) }
+    let(:project) { create(:project, user: user) }
+    let(:task) { create(:task, project: project) }
 
     it 'should creates a new task period within the existing task' do
       previous_size = TaskPeriod.where(task: task).count
@@ -92,8 +92,8 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'pause' do
-    let!(:project) { create(:project, user: user) }
-    let!(:task) { create(:task, project: project) }
+    let(:project) { create(:project, user: user) }
+    let(:task) { create(:task, project: project) }
 
     it 'should add a finished date to the task period already opened' do
       task_period = TaskPeriod.create!(task: task, started_at: Time.now)
@@ -114,33 +114,84 @@ RSpec.describe TasksController, type: :controller do
   end
 
   describe 'stop' do
-    let!(:project) { create(:project, user: user) }
-    let!(:task) { create(:task, project: project) }
+    let(:project) { create(:project, user: user) }
+    let(:task) { create(:task, project: project) }
+    let(:task_period) { create(:task_period, task: task) }
+    let!(:default_params) { { user: 'the_user', id: task_period.id, task: {billable: true, description: 'hi', project: project.name, client: 'any'} } }
 
     it 'should add a finished date to the task period already opened' do
-      task_period = TaskPeriod.create!(task: task, started_at: Time.now)
 
-      post :stop, params: {user: 'the_user', id: task_period.id}
+      post :stop, params: default_params
 
       expect(TaskPeriod.find(task_period.id).finished_at?).not_to be_nil
       expect(TaskPeriod.find(task_period.id).started?).to be_falsy
     end
 
     it 'should not allow to finish a task from other user' do
-      task_period = TaskPeriod.create!(task: task, started_at: Time.now)
+      task_period = create(:task_period_started)
 
-      post :stop, params: {user: 'another_user', id: task_period.id}
+      post :stop, params: default_params.merge(user: 'another_user')
 
-      expect(TaskPeriod.find(task_period.id).finished_at).to be_nil
+      task_period.reload
+      expect(task_period.finished_at).to be_nil
       expect(response).to redirect_to '/another_user'
     end
 
     it 'should redirects to index after closing the last task' do
-      task_period = TaskPeriod.create!(task: task, started_at: Time.now)
-
-      post :stop, params: {user: 'the_user', id: task_period.id}
+      post :stop, params: default_params
 
       expect(response).to redirect_to '/the_user'
+    end
+
+    it 'should save the task information' do
+      default_params[:task] = default_params[:task].merge({description: 'new description', billable: false})
+      post :stop, params: default_params
+
+      task.reload
+      expect(task.description).to eq('new description')
+      expect(task.billable).to be_falsy
+    end
+
+    it 'should change the project if it is changed' do
+      another_project = create(:project, name: 'another project', user: user)
+
+      default_params[:task] = default_params[:task].merge({project: 'another project'})
+
+      post :stop, params: default_params
+
+      task.reload
+      expect(task.project.id).to eq(another_project.id)
+    end
+
+    it 'should change the project if it is changed' do
+      default_params[:task] = default_params[:task].merge({project: 'new project'})
+
+      post :stop, params: default_params
+
+      task.reload
+      expect(task.project.name).to eq('new project')
+    end
+
+    it 'should change the client if it is changed' do
+      another_client = create(:client, name: 'another client', user: user)
+
+      default_params[:task] = default_params[:task].merge({client: 'another client'})
+
+      post :stop, params: default_params
+
+      task.reload
+
+      expect(task.project.client.id).to eq(another_client.id)
+    end
+
+    it 'should change the client if it is changed' do
+      default_params[:task] = default_params[:task].merge({client: 'new client'})
+
+      post :stop, params: default_params
+
+      task.reload
+      
+      expect(task.project.client.name).to eq('new client')
     end
   end
 

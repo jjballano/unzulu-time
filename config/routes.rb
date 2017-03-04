@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :tasks do
     member do
       post 'pause'
-      post 'stop'
+      patch 'stop'
     end
   end
 end

@@ -1,7 +1,11 @@
+
 FactoryGirl.define do
-  factory :user do
-    username "AnyUser"
-    registered false
+  sequence :username do |n|
+    "AnyUser#{n}"
   end
 
+  factory :user do
+    username 
+    registered false
+  end
 end
