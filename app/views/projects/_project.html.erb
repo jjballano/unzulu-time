@@ -2,7 +2,7 @@
   <div class="breakdown-project">
     <div class="project-data">
       <p><%= project.name %></p>
-      <p class="client">Client</p>
+      <p class="client"><%= project.client.name %></p>
     </div>
     <div>
       <p><%= project.time_day %></p>
@@ -36,16 +36,7 @@
       </div>     
     </div>
     <div class="tasks-list">
-        <div class= "list">
-          <div class="task-date"><p>09.12.2016</p></div>
-          <div class="task-description"><p>Description</p></div>
-          <div class="task-price"><p>3.02</p></div>
-        </div>
-        <div class= "list">
-          <div class="task-date"><p>09.12.2016</p></div>
-          <div class="task-description"><p>Description</p></div>
-          <div class="task-price"><p>3.02</p></div>
-        </div>
+      <%= render project.tasks %>
     </div>
     
   </div>
