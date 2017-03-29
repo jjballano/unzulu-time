@@ -4,7 +4,7 @@ class Project < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
   def time_day
-    5.2
+    "1:30"
   end
 
   def time_week
