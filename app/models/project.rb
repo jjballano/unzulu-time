@@ -4,7 +4,10 @@ class Project < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
   def time_day
-    "1:30"
+    today = Time.now.beginning_of_day
+    duration = tasks.find_all{|task| task.start_date >= today }
+                    .inject(0){|sum, task| sum += task.duration }
+    Time.at(duration).utc.strftime("%H:%M")    
   end
 
   def time_week

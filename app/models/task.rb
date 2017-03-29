@@ -16,6 +16,10 @@ class Task < ApplicationRecord
     task_periods.order(:finished_at).last.finished_at unless started? || task_periods.empty?
   end
 
+  def duration
+    task_periods.inject(0){ |time, period| time += period.duration }
+  end
+
   private
 
   def create_period 
