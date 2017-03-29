@@ -2,7 +2,7 @@
   <div class="breakdown-project">
     <div class="project-data">
       <p><%= project.name %></p>
-      <p class="client"><%= project.client.name %></p>
+      <p class="client"><%= project.client.name unless project.client.nil? %></p>
     </div>
     <div>
       <p><%= project.time_day %></p>

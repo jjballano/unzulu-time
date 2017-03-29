@@ -13,7 +13,7 @@
 
     <div>
       <div class="icon"><%= image_tag("moustache.svg", class:'client-icon') %></div>
-      <%= f.text_field :client, value: task.project.client.name %>
+      <%= f.text_field :client, value: task.project.client.nil? ? '':task.project.client.name %>
     </div>
     <div>
       <div class="icon time-icon"><%= fa_icon 'clock-o' %></div>
