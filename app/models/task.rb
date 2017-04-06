@@ -17,7 +17,7 @@ class Task < ApplicationRecord
   end
 
   def duration
-    task_periods.inject(0){ |time, period| time += period.duration }
+    Duration.new(task_periods.inject(0){ |time, period| time += period.duration })
   end
 
   private

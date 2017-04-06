@@ -1,5 +1,5 @@
 <section class="pop-up edit-task" id="edit-task-popup">
-  <%= form_for task, url: {action: 'stop', id: task.id} do |f| %>
+  <%= form_for task, url: {action: 'stop', id: task_period.id} do |f| %>
     <%= hidden_field_tag "user", user.username %>
     <h4>EDIT TASK</h4>
     <div>

@@ -44,6 +44,10 @@ class TasksController < ApplicationController
       @task.project = Project.find_or_create_by(name: project_name, user: @user)
     end
 
+    if @task.project.client.nil? || (client_name != @task.project.client.name)
+      @task.project.client = Client.find_or_create_by(name: client_name, user: @user)
+      @task.project.save
+    end
     @task.save
 
     redirect_to "/#{@user.username}"

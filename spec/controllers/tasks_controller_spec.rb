@@ -172,7 +172,7 @@ RSpec.describe TasksController, type: :controller do
       expect(task.project.name).to eq('new project')
     end
 
-    it 'should change the client if it is changed' do
+    it 'should change the client if it is changed when client already exists' do
       another_client = create(:client, name: 'another client', user: user)
 
       default_params[:task] = default_params[:task].merge({client: 'another client'})
@@ -184,7 +184,7 @@ RSpec.describe TasksController, type: :controller do
       expect(task.project.client.id).to eq(another_client.id)
     end
 
-    it 'should change the client if it is changed' do
+    it 'should create the client if it is changed' do
       default_params[:task] = default_params[:task].merge({client: 'new client'})
 
       post :stop, params: default_params

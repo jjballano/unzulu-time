@@ -4,7 +4,7 @@ RSpec.describe Task, type: :model do
   
   let!(:task) { create(:task) }
   let(:now) { Time.now }
-  ONE_HOUR = 3600
+  ONE_HOUR ||= 3600
 
   describe 'create' do
     it 'should creates a task period with current time as start' do      
@@ -57,7 +57,7 @@ RSpec.describe Task, type: :model do
       task.task_periods.build(started_at: now - 2*ONE_HOUR, finished_at: now - ONE_HOUR)
       task.task_periods.build(started_at: now - ONE_HOUR, finished_at: now - 0.5*ONE_HOUR)
 
-      expect(task.duration).to eq(5400)
+      expect(task.duration.time_in_seconds).to eq(5400)
     end
   end
 end

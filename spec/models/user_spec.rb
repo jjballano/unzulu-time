@@ -30,4 +30,68 @@ RSpec.describe User, type: :model do
     expect(user.registered).to be_falsy
   end
 
+  describe "total_day" do
+    it "should return the time of the tasks' project" do
+      project = Project.new
+      allow(project).to receive(:time_day) { Duration.new(180) }
+      user.projects << project
+
+      expect(user.total_day.to_s).to eq("00:03")
+    end
+
+    it "should return the sum of time of the tasks of all projects" do
+      project = Project.new
+      allow(project).to receive(:time_day) { Duration.new(180) }
+      user.projects << project
+      project2 = Project.new
+      allow(project2).to receive(:time_day) { Duration.new(120) }
+      user.projects << project2
+
+      expect(user.total_day.to_s).to eq("00:05")
+    end
+
+  end
+
+  describe "total_week" do
+    it "should return the time of the tasks' project" do
+      project = Project.new
+      allow(project).to receive(:time_week) { Duration.new(180) }
+      user.projects << project
+
+      expect(user.total_week.to_s).to eq("00:03")
+    end
+
+    it "should return the sum of time of the tasks of all projects" do
+      project = Project.new
+      allow(project).to receive(:time_week) { Duration.new(1800) }
+      user.projects << project
+      project2 = Project.new
+      allow(project2).to receive(:time_week) { Duration.new(1200) }
+      user.projects << project2
+
+      expect(user.total_week.to_s).to eq("00:50")
+    end
+  end
+
+  describe "total_month" do
+    it "should return the time of the tasks' project" do
+      project = Project.new
+      allow(project).to receive(:time_month) { Duration.new(180) }
+      user.projects << project
+
+      expect(user.total_month.to_s).to eq("00:03")
+    end
+
+    it "should return the sum of time of the tasks of all projects" do
+      project = Project.new
+      allow(project).to receive(:time_month) { Duration.new(1800) }
+      user.projects << project
+      project2 = Project.new
+      allow(project2).to receive(:time_month) { Duration.new(1200) }
+      user.projects << project2
+
+      expect(user.total_month.to_s).to eq("00:50")
+    end
+  end
+
 end

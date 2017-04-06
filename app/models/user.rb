@@ -11,15 +11,15 @@ class User < ApplicationRecord
   end
 
   def total_day
-    8.52
+    projects.inject(Duration.new(0)){|sum, project| sum += project.time_day }
   end
 
   def total_week
-    22.55
+    projects.inject(Duration.new(0)){|sum, project| sum += project.time_week }        
   end
 
   def total_month
-    143.2
+    projects.inject(Duration.new(0)){|sum, project| sum += project.time_month }    
   end
 
 end
