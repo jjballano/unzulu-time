@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe TaskPeriod, type: :model do
   let(:now) { Time.now }
   let(:task_period) { create(:task_period) } 
-  ONE_HOUR ||= 3600
 
   it 'should adds a started_at time when it is created' do
     task_period = create(:task_period, started_at: nil)
@@ -30,8 +29,8 @@ RSpec.describe TaskPeriod, type: :model do
 
   describe 'duration' do
     it 'should return the duration of the task in seconds' do
-      task_period.started_at = now - ONE_HOUR
-      task_period.finished_at = now - 0.5*ONE_HOUR
+      task_period.started_at = now - 1.hour
+      task_period.finished_at = now - 0.5.hour
 
       expect(task_period.duration).to eq(1800)
     end

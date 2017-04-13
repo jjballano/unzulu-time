@@ -23,6 +23,6 @@ class Task < ApplicationRecord
   private
 
   def create_period 
-    task_periods.create(nil)
+    task_periods.create(nil) if task_periods.empty?
   end
 end
