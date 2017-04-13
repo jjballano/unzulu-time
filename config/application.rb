@@ -14,6 +14,7 @@ module UnzuluTime
     if Rails.configuration.respond_to?(:sass)
       Rails.configuration.sass.tap do |config|
         config.preferred_syntax = :sass
+        config.eager_load = true
       end
     end
   end

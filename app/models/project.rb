@@ -1,5 +1,3 @@
-require 'tasks/duration'
-
 class Project < ApplicationRecord
   belongs_to :user
   belongs_to :client, required: false
