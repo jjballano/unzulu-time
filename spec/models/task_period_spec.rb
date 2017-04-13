@@ -5,6 +5,19 @@ RSpec.describe TaskPeriod, type: :model do
   let(:task_period) { create(:task_period) } 
   ONE_HOUR ||= 3600
 
+  it 'should adds a started_at time when it is created' do
+    task_period = create(:task_period, started_at: nil)
+
+    expect(task_period.started_at).not_to be_nil
+  end
+
+  it 'should not add a started_at time when it already has one assigned' do
+    started_time = Time.now - 50
+    task_period = create(:task_period, started_at: started_time)
+
+    expect(task_period.started_at).to eq(started_time)
+  end
+
   it 'should return started? value depending on finished date' do
 
     task_period.finished_at = nil

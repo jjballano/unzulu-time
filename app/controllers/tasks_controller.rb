@@ -28,6 +28,7 @@ class TasksController < ApplicationController
 
   def update
     @task.task_periods.create(nil)
+    @task_period = @task.task_periods.find { |t| t.started? }
     respond_to do |format|
       format.js 
     end

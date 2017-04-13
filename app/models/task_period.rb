@@ -1,6 +1,8 @@
 class TaskPeriod < ApplicationRecord
   belongs_to :task
 
+  before_create :start_me
+
   def started?
     finished_at.nil?
   end
@@ -13,5 +15,11 @@ class TaskPeriod < ApplicationRecord
   def close
     self.finished_at = Time.now
     self.save
+  end
+
+  private 
+
+  def start_me
+    self.started_at = Time.now if self.started_at.nil?
   end
 end

@@ -23,6 +23,6 @@ class Task < ApplicationRecord
   private
 
   def create_period 
-    task_periods.create(started_at: Time.now)
+    task_periods.create(nil)
   end
 end
